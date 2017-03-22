@@ -2,7 +2,7 @@
 
 ## Tasks
 
-1. Convert Ultrasonic [Ultrasonic Sensor.py](src/Ultrasonic\ Sensor.py) to a function called ussensor
+1. Convert Ultrasonic [Ultrasonic Sensor.py](src/Ultrasonic Sensor.py) to a function called ussensor
 
 2. Write the function to communicate with the firebase in firebase.py
 
