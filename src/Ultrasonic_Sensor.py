@@ -1,4 +1,4 @@
-### Need to convert to a function called 'ussensor'
+### Need to convert to a function called 'ussensor' hi everyone
 import RPi.GPIO as GPIO                    #Import GPIO library
 import time                                #Import time library
 GPIO.setmode(GPIO.BCM)                     #Set GPIO pin numbering 
