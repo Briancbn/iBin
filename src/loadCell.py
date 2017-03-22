@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 10 19:34:33 2017
-
-@author: brian97cbn
-"""
-
 import RPi.GPIO as GPIO
 from time import sleep
 
