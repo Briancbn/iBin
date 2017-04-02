@@ -1,6 +1,6 @@
 def check_id(identity)
 # identity should be either from CardRead or Userinput
-    database_id =
+    firebase.get("/") database_id =
     # need set to retrieve value from firebase and store as local variable
     # database ID should be a dictionary
     
