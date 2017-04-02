@@ -8,7 +8,7 @@
 
 - [ ] 3. Change both sensors functions using the correct pins
 
-- [ ] 4. Complete the cardRead function
+- [x] 4. Complete the cardRead function
 
 - [ ] 5. Write the program for [main.py](src/main.py)
 
