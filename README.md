@@ -9,3 +9,6 @@
 3. Change both sensors functions using the correct pins
 
 4. Write the program for [main.py](src/main.py) without the cardRead function
+
+## Links
+Card reader setup tutorial https://www.youtube.com/watch?v=tZPWXnMdIRU
