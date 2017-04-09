@@ -28,14 +28,14 @@ class Welcome(Screen):
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal')
         self.enterIDText = TextInput(multiline=False)
-        enterButton = Button(text='OK')
+        self.enterButton = Button(text='OK')
         enterID.add_widget(self.enterIDText)
-        enterID.add_widget(enterButton)
+        enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
         self.layout.add_widget(Welcome)
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
-        self.settings.bind(on_press=self.change_to_2)
+        self.enterButton.bind(on_press=self.change_to_UserInterface)
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
@@ -73,11 +73,12 @@ class UserInterface(Screen):
         self.layout.add_widget(instruction)
         self.layout.add_widget(Quit)
         #bind exit
-        self.BackToMenu.bind(on_press=self.change_to_Welcome)
+        self.Quit.bind(on_press=self.change_to_Welcome)
         self.add_widget(self.layout)
         
 
     def change_to_Welcome(self,value):
+        self.id=''
         self.manager.transition.direction = 'left'
         # modify the current screen to a different "name"
         self.manager.current= 'welcome'
