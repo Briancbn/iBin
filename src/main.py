@@ -27,7 +27,7 @@ while True:
     
     time = 0
     # use dictionary and class for ValidId store and read from firebase
-    tolerance = 1
+    tolerance = 2
     # set tolerance for checking
     wait_time = 1
     
