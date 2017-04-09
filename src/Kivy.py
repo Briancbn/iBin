@@ -43,7 +43,7 @@ class Welcome(Screen):
         #update ID
         self.manager.transition.direction = 'right'
         # modify the current screen to a different "name"
-    	self.manager.current= 'Screen2'
+    	self.manager.current= 'user interface'
 
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
@@ -80,7 +80,7 @@ class UserInterface(Screen):
     def change_to_Welcome(self,value):
         self.manager.transition.direction = 'left'
         # modify the current screen to a different "name"
-        self.manager.current= 'w'
+        self.manager.current= 'welcome'
 
 
 class FullBin(Screen):
