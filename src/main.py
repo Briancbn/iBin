@@ -5,7 +5,7 @@
 # and if true get the value
 from time import sleep
 from Ultrasonic_Sensor import is_full
-from ValidId import return_points, update_points
+from ValidId import return_points, add_points
 from loadCell import getGram
 
 import sys
@@ -49,5 +49,5 @@ while True:
             break
         time = 0
         
-    update_points(identity, dpoints)
+    add_points(identity, dpoints)
     
