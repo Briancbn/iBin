@@ -13,7 +13,7 @@ def is_full():
     GPIO.setup(TRIG,GPIO.OUT)                  #Set pin as GPIO out
     GPIO.setup(ECHO,GPIO.IN,GPIO.PUD_DOWN)     #Set pin as GPIO in
     
-    binlength=                                 #set bin length
+    binlength= 15                              #set bin length
     
     while True:
     
