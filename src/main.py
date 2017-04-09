@@ -5,7 +5,7 @@
 # and if true get the value
 from time import sleep
 from Ultrasonic_Sensor import is_full
-from ValidId import return_points
+from ValidId import return_points, update_points
 from loadCell import getGram
 
 import sys
@@ -16,7 +16,7 @@ from Read import ReturnID
 while True:
 
     while is_full():
-        print "Please clean the bin"
+        print "             Please clean the bin"
         sleep(2)
     # send message to operator
 
@@ -27,7 +27,7 @@ while True:
     
     time = 0
     # use dictionary and class for ValidId store and read from firebase
-    tolerance = 2
+    tolerance = 3
     # set tolerance for checking
     wait_time = 1
     
@@ -48,5 +48,6 @@ while True:
         if time >= 10:
             break
         time = 0
-    
+        
+    update_points(identity, dpoints + newpoints)
     
