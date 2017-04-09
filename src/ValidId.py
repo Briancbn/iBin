@@ -6,22 +6,12 @@ token = "Czk1K09ZNHtLLOfRLdIe6htAzeWwrqYwJTnbrOqN" #unique token used for authen
 
 firebase = firebase.FirebaseApplication(url, token)
 
-database_id = [{"ID": "iidd1", "name": "Marcus", "points": "420"}, {"ID": "iidd2", "name": "Suwen", "points": "477"}]
+database_id = [{"ID": "64,237,132,124", "name": "Marcus", "points": "420"}, {"ID": "80,106,203,128", "name": "Suwen", "points": "477"}]
 firebase.put("/", "DW" , database_id)
 deek = firebase.get("/DW")
 
 
-def return_points(ID, points, database_id):
+def return_points(ID, points):
     for entry in deek:
         if ID == entry["ID"]:
            return  entry[points]
-
-
-    # need set to retrieve value from firebase and store as local variable
-    # database ID should be a dictionary
-
-
-
-
-
-    
