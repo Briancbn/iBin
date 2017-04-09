@@ -19,7 +19,7 @@ def return_points(ID, points, database_id):
 
     # need set to retrieve value from firebase and store as local variable
     # database ID should be a dictionary
-print return_points("iidd1", "points", database_id)
+
 
 
 
