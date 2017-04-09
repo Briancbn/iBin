@@ -39,15 +39,15 @@ while True:
             sleep(wait_time)
             time += 1
             print "timeleft: ", time
-            if time >= 10:
+            if time >= 5:
                 break
         newpoints = getGram()
         dpoints += newpoints - startpoints
         startpoints = newpoints
         print "      Addpoints: ", dpoints
-        if time >= 10:
+        if time >= 5:
             break
         time = 0
         
-    update_points(identity, dpoints + newpoints)
+    update_points(identity, dpoints)
     
