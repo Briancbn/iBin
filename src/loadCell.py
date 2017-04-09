@@ -8,7 +8,7 @@ GPIO.setmode(GPIO.BCM)
 
 # Set pin 12 as the input pin for DOUT and pin 23 as the output pin for SCK
 DOUT = 12
-SCK = 23
+SCK = 16
 GPIO.setup(DOUT, GPIO.IN, GPIO.PUD_DOWN)
 GPIO.setup(SCK, GPIO.OUT)
 

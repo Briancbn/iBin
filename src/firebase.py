@@ -1,1 +1,0 @@
-### Communications with the firebase ###
