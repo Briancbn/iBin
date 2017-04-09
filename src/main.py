@@ -3,52 +3,50 @@
 # card_input and user_input should return an Id
 # ValidId should check the database and return true or false if it exist,
 # and if true get the value
-
 from time import sleep
-from Ultrasonic_Sensor import is_full as is_full
-from ValidId import check_id as check_id
-from ValidId import current_points as current_points
+from Ultrasonic_Sensor import is_full
+from ValidId import return_points
 from loadCell import getGram
 
-# program always runs
+import sys
+sys.path.append('../MFRC522-python')
+from Read import ReturnID
+
+
 while True:
 
-    identity = ''
-
-    if is_full():
-        pass
+    while is_full():
+        print "Please clean the bin"
+        sleep(2)
     # send message to operator
 
-    else:
-        if card_input() != None:
-            identity = card_id()
-
-        elif user_input() != None:
-            identity = user_input()
-
-        # check for userinput and set to identity
-
-    if check_id(identity):
-
-        # use dictionary and class for ValidId store and read from firebase
-        tolerance = 1
-    # set tolerance for checking
-        wait_time = 5
-
-        cp = current_points(identity)
-        # get points from database
-        gained_points = getGram()
-        sleep(wait_time)
-
-        while gained_points - tolerance < getGram() < gained_points + tolerance:
-            gained_points = getGram()
-            sleep(wait_time)
-
-        newpoints = cp + gained_points
-
-        # printout on kivy
-        # send to firebase
-        ?????
     
-    identity=''
-    #set identity back to None
+    identity = ReturnID()
+    name = return_points(identity, 'name')
+    points = return_points(identity, 'points')
+    
+    time = 0
+    # use dictionary and class for ValidId store and read from firebase
+    tolerance = 1
+    # set tolerance for checking
+    wait_time = 1
+    
+    startpoints = getGram()
+    dpoints = 0
+    print "Start throwing garbage"
+    while(True):
+        while startpoints - tolerance < getGram() < startpoints + tolerance:
+            sleep(wait_time)
+            time += 1
+            print "timeleft: ", time
+            if time >= 10:
+                break
+        newpoints = getGram()
+        dpoints += newpoints - startpoints
+        startpoints = newpoints
+        print "      Addpoints: ", dpoints
+        if time >= 10:
+            break
+        time = 0
+    
+    
