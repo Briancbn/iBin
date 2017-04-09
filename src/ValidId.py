@@ -6,7 +6,7 @@ token = "Czk1K09ZNHtLLOfRLdIe6htAzeWwrqYwJTnbrOqN" #unique token used for authen
 
 firebase = firebase.FirebaseApplication(url, token)
 
-database_id = [{"ID": "64,237,132,124", "name": "Marcus", "points": "420"}, {"ID": "80,106,203,128", "name": "Suwen", "points": "477"}]
+database_id = [{"ID": "64,237,132,124", "name": "Marcus", "points": 420}, {"ID": "80,106,203,128", "name": "Suwen", "points": 477}]
 firebase.put("/", "DW" , database_id)
 deek = firebase.get("/DW")
 
