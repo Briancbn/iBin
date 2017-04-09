@@ -3,12 +3,12 @@ from time import sleep
 
 
 # Use the BCM GPIO numbers as the numbering scheme
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 
-# Set pin 12 as the input pin for DOUT and pin 23 as the output pin for SCK
-DOUT = 12
-SCK = 16
+# Set pin 12 as the input pin for DOUT and pin 16 as the output pin for SCK
+DOUT = 32
+SCK = 36
 GPIO.setup(DOUT, GPIO.IN, GPIO.PUD_DOWN)
 GPIO.setup(SCK, GPIO.OUT)
 
