@@ -61,7 +61,6 @@ class Welcome(Screen):
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
-            sleep(1)
         
     def readcard(self, value):
       if self.manager.current == 'welcome':
@@ -80,12 +79,13 @@ class Welcome(Screen):
         
     def isfull(self, value):
         if self.manager.current == 'welcome' or self.manager.current == 'full_bin':
-            if is_full():
+            full = is_full()
+            if full and self.manager.current == 'welcome':
                 self.manager.transition = SlideTransition()
                 self.manager.transition.direction = 'left'
                 self.manager.current = "full_bin"
-                sleep(0.5)
-            else:
+                sleep(1)
+            elif self.manager.current == 'welcome'
                 self.manager.transition = SlideTransition()
                 self.manager.transition.direction = 'right'
                 self.manager.current = "welcome"
