@@ -57,7 +57,7 @@ class Welcome(Screen):
         #update ID
         # modify the current screen to a different "name"
         if self.manager.current == 'welcome':
-            self.manager.transition = SlideTransition
+            self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
         
@@ -69,7 +69,7 @@ class Welcome(Screen):
             id1.ID=IDfromCard
             self.enterIDText.text=''
             #update ID
-            self.manager.transition = SlideTransition
+            self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             # modify the current screen to a different "name"
             self.manager.current= 'user_interface'
@@ -121,7 +121,7 @@ class UserInterface(Screen):
 
     def change_to_Welcome(self,value):
         id1.ID='0'
-        self.manager.transition = NoTransition
+        self.manager.transition = NoTransition()
         # modify the current screen to a different "name"
         self.manager.current= 'welcome'
 
