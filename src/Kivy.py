@@ -83,7 +83,7 @@ class Welcome(Screen):
         IDfromCard = ReturnID()
         if IDfromCard != False:
             info = return_points(IDfromCard)
-            if info != False
+            if info != False:
                 identity.ID = info['ID']
                 identity.name = info['name']
                 identity.points = info['points']
