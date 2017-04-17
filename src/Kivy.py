@@ -38,7 +38,7 @@ class IDstorage(object):
 #create an ID object
 
 identity=IDstorage()
-tolerance = 3
+tolerance = 5
 timetol = 10
 startpoints = 0
 starttime = time()
@@ -164,7 +164,7 @@ class UserInterface(Screen):
             newtime = time()
             timelapse = newtime - starttime
             if 10 > timelapse >= 5:
-                self.instruction.text = "Quit in %is" % int(timelapse)
+                self.instruction.text = "Quit in %is" % int(timetol - timelapse)
             elif timelapse < 5:
                 self.instruction.text = "Throw the trash in the bin. Press Quit to exit"
             else:
