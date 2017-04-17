@@ -20,8 +20,11 @@ while True:
         sleep(2)
     # send message to operator
 
-    
-    identity = ReturnID()
+    while True:
+        identity = ReturnID()
+        if identity != False:
+            break
+        
     name = return_points(identity, 'name')
     points = return_points(identity, 'points')
     
