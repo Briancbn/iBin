@@ -22,6 +22,6 @@ def return_points(ID):
 def add_points(ID, newpoints):
     for entry in deek:
         if ID == entry["ID"]:
-            entry["points"] += newpoints
+            entry["points"] = newpoints
             firebase.put("/", "DW", deek)
             return entry["points"]

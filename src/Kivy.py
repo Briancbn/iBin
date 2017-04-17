@@ -14,10 +14,11 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.app import App
 from kivy.clock import Clock
-from time import sleep
+from time import sleep, time
 
-from ValidId import return_points
+from ValidId import return_points, add_points
 from Ultrasonic_Sensor import is_full
+from loadCell import getGram
 
 import sys
 sys.path.append('../MFRC522-python')
@@ -37,6 +38,10 @@ class IDstorage(object):
 #create an ID object
 
 identity=IDstorage()
+tolerance = 3
+timetol = 10
+startpoints = 0
+starttime = time()
 
 class Welcome(Screen):
     def __init__(self, **kwargs):
@@ -69,12 +74,16 @@ class Welcome(Screen):
             identity.ID = info['ID']
             identity.name = info['name']
             identity.points = info['points']
+            global startpoints, starttime
+            startpoints = getGram()
             self.enterIDText.text = ''
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
+            starttime = time()
         elif info == False:
-            self.Welcome.text += "\nPlease enter valid ID or Name" 
+            self.Welcome.text = "'[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]'\nPlease enter valid ID or Name" 
+            self.enterIDText.text = ''
             
         
     def readcard(self, value):
@@ -87,13 +96,14 @@ class Welcome(Screen):
                 identity.ID = info['ID']
                 identity.name = info['name']
                 identity.points = info['points']
+                global startpoints, starttime
+                startpoints = getGram()
                 self.enterIDText.text=''
                 self.manager.transition = SlideTransition()
                 self.manager.transition.direction = 'right'
                 # modify the current screen to a different "name"
                 self.manager.current= 'user_interface'
-                sleep(1)
-
+                starttime = time()
         
     def isfull(self, value):
         if self.manager.current == 'welcome' or self.manager.current == 'full_bin':
@@ -128,14 +138,13 @@ class UserInterface(Screen):
         self.information.add_widget(currentPoint)
         self.information.add_widget(self.currentPointText)
         # instruction
-        instruction = Label(text="Throw the trash in the bin. Press Quit to exit")
+        self.instruction = Label(text="Throw the trash in the bin. Press Quit to exit")
         #quit button
         self.Quit = Button(text="Quit")
         #Add
         self.layout.add_widget(self.information)
-        self.layout.add_widget(instruction)
+        self.layout.add_widget(self.instruction)
         self.layout.add_widget(self.Quit)
-
         #bind exit
         self.Quit.bind(on_press=self.change_to_Welcome)
         self.add_widget(self.layout)
@@ -144,11 +153,28 @@ class UserInterface(Screen):
         
     def update_name_points(self, value):
         if self.manager.current == "user_interface":
-            self.currentPointText.text=str(identity.points)
             self.IDText.text=identity.name
-        
+            self.currentPointText.text=str(identity.points)
+            global startpoints, starttime
+            newpoints = getGram()
+            if newpoints > startpoints + tolerance or newpoints < startpoints - tolerance:
+                identity.points += newpoints - startpoints
+                startpoints = newpoints
+                starttime = time()
+            newtime = time()
+            timelapse = newtime - starttime
+            if 10 > timelapse >= 5:
+                self.instruction.text = "Quit in %is" % int(timelapse)
+            elif timelapse < 5:
+                self.instruction.text = "Throw the trash in the bin. Press Quit to exit"
+            else:
+                self.change_to_Welcome(0)
+                
+            
 
     def change_to_Welcome(self,value):
+        add_points(identity.ID, identity.points)
+        print identity.points
         identity.clear()
         self.manager.transition = SlideTransition()
         self.manager.transition.direction = 'left'
