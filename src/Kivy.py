@@ -75,6 +75,7 @@ class Welcome(Screen):
     def isfull(self, value):
         if is_full():
             self.manager.current = "full_bin"
+            print '    full'
         else:
             self.manager.current = "welcome"
 #    def quit_app(self, value):
