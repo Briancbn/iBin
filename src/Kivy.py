@@ -47,8 +47,8 @@ class Welcome(Screen):
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
         self.enterButton.bind(on_press=self.change_to_UserInterface)
-        self.check_full = Clock.schedule_interval(self.isfull, 2)
-        self.check_card = Clock.schedule_interval(self.readcard, 3)
+        self.check_full = Clock.schedule_interval(self.isfull, 1/5)
+        self.check_card = Clock.schedule_interval(self.readcard, 1/5)
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
