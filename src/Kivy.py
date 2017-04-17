@@ -163,7 +163,7 @@ class UserInterface(Screen):
                 starttime = time()
             newtime = time()
             timelapse = newtime - starttime
-            if 10 > timelapse >= 5:
+            if timetol > timelapse >= 5:
                 self.instruction.text = "Quit in %is" % int(timetol - timelapse)
             elif timelapse < 5:
                 self.instruction.text = "Throw the trash in the bin. Press Quit to exit"
