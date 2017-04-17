@@ -74,9 +74,11 @@ class Welcome(Screen):
         
     def isfull(self, value):
         if is_full():
+            self.manager.transition.direction = 'right'
             self.manager.current = "full_bin"
             print '    full'
         else:
+            self.manager.transition.direction = 'right'
             self.manager.current = "welcome"
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
