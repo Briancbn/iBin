@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+from time import time
+
 
 def ReturnID():
     import RPi.GPIO as GPIO
@@ -24,9 +26,12 @@ def ReturnID():
     # Welcome message
     print "Welcome to the MFRC522 data read example"
     print "Press Ctrl-C to stop."
-    
+    starttime = time()
     # This loop keeps checking for chips. If one is near it will get the UID and authenticate
     while continue_reading:
+        if time() - starttime >= 3:
+            return False
+            break
         
         # Scan for cards    
         (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
