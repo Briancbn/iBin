@@ -6,7 +6,7 @@ Created on Sun Apr  9 22:21:05 2017
 @author: ZHI_WANG
 """
 
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -76,10 +76,10 @@ class Welcome(Screen):
     def isfull(self, value):
         if self.manager.current == 'welcome' or self.manager.current == 'full_bin':
             if is_full():
-                self.manager.transition.direction = 'right'
+                self.manager.transition = NoTransition
                 self.manager.current = "full_bin"
             else:
-                self.manager.transition.direction = 'right'
+                self.manager.transition = NoTransition
                 self.manager.current = "welcome"
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
@@ -119,7 +119,7 @@ class UserInterface(Screen):
 
     def change_to_Welcome(self,value):
         id1.ID='0'
-        self.manager.transition.direction = 'left'
+        self.manager.transition = NoTransition
         # modify the current screen to a different "name"
         self.manager.current= 'welcome'
 
