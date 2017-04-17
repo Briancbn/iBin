@@ -61,7 +61,7 @@ class Welcome(Screen):
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
-            sleep(0.5)
+            sleep(1)
         
     def readcard(self, value):
       if self.manager.current == 'welcome':
@@ -75,19 +75,21 @@ class Welcome(Screen):
             self.manager.transition.direction = 'right'
             # modify the current screen to a different "name"
             self.manager.current= 'user_interface'
-            sleep(0.5)
+            sleep(1)
 
         
     def isfull(self, value):
         if self.manager.current == 'welcome' or self.manager.current == 'full_bin':
             if is_full():
-                self.manager.transition = NoTransition()
+                self.manager.transition = SlideTransition()
+                self.manager.transition.direction = 'left'
                 self.manager.current = "full_bin"
                 sleep(0.5)
             else:
-                self.manager.transition = NoTransition()
+                self.manager.transition = SlideTransition()
+                self.manager.transition.direction = 'right'
                 self.manager.current = "welcome"
-                sleep(0.5)
+                sleep(1)
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
 
@@ -126,10 +128,11 @@ class UserInterface(Screen):
 
     def change_to_Welcome(self,value):
         id1.ID='0'
-        self.manager.transition = NoTransition()
+        self.manager.transition = SlideTransition()
+        self.manager.transition.direction = 'left'
         # modify the current screen to a different "name"
         self.manager.current= 'welcome'
-        sleep(0.5)
+        sleep(1)
 
 
 class FullBin(Screen):
