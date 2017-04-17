@@ -38,7 +38,7 @@ class IDstorage(object):
 #create an ID object
 
 identity=IDstorage()
-tolerance = 5
+tolerance = 10
 timetol = 10
 startpoints = 0
 starttime = time()
