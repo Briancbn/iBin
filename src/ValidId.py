@@ -15,6 +15,7 @@ def return_points(ID, points):
     for entry in deek:
         if ID == entry["ID"]:
            return  entry[points]
+    return False
   
 def add_points(ID, newpoints):
     for entry in deek:
