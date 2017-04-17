@@ -155,16 +155,18 @@ class UserInterface(Screen):
         if self.manager.current == "user_interface":
             self.IDText.text=identity.name
             self.currentPointText.text=str(identity.points)
-            global startpoints, starttime
+            global startpoints, starttime, tolerance
             newpoints = getGram()
+            if startpoints > 100:
+                tolerance = 0.1 * startpoints
             if newpoints > startpoints + tolerance or newpoints < startpoints - tolerance:
                 identity.points += newpoints - startpoints
                 startpoints = newpoints
                 starttime = time()
             newtime = time()
             timelapse = newtime - starttime
-            if timetol > timelapse >= 5:
-                self.instruction.text = "Quit in %is" % int(timetol - timelapse)
+            if timetol > timelapse >= timetol - 5:
+                self.instruction.text = "Quit in %is" % int(timetol + 1 - timelapse)
             elif timelapse < 5:
                 self.instruction.text = "Throw the trash in the bin. Press Quit to exit"
             else:
