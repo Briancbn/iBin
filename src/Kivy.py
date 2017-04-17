@@ -85,7 +85,7 @@ class Welcome(Screen):
                 self.manager.transition.direction = 'left'
                 self.manager.current = "full_bin"
                 sleep(1)
-            elif self.manager.current == 'welcome'
+            elif self.manager.current == 'welcome':
                 self.manager.transition = SlideTransition()
                 self.manager.transition.direction = 'right'
                 self.manager.current = "welcome"
