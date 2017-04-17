@@ -6,7 +6,7 @@ Created on Sun Apr  9 22:21:05 2017
 @author: ZHI_WANG
 """
 
-from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition, NoTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -14,10 +14,11 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.app import App
 from kivy.clock import Clock
-from time import sleep
+from time import sleep, time
 
-from ValidId import return_points
+from ValidId import return_points, add_points
 from Ultrasonic_Sensor import is_full
+from loadCell import getGram
 
 import sys
 sys.path.append('../MFRC522-python')
@@ -25,17 +26,29 @@ from Read import ReturnID
 
 
 class IDstorage(object):
-    def __init__(self,ID='0'):
-        self.ID=ID
+    def __init__(self):
+        self.ID=''
+        self.name = ''
+        self.points = 0
+    
+    def clear(self):
+        self.ID=''
+        self.name = ''
+        self.points = 0
 #create an ID object
-id1=IDstorage()
+
+identity=IDstorage()
+tolerance = 10
+timetol = 10
+startpoints = 0
+starttime = time()
 
 class Welcome(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
-        Welcome = Label(text='[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]',
+        self.Welcome = Label(text='[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]',
                         color = (0,0,1,1))
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal')
@@ -44,38 +57,53 @@ class Welcome(Screen):
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
-        self.layout.add_widget(Welcome)
+        self.layout.add_widget(self.Welcome)
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
         self.enterButton.bind(on_press=self.change_to_UserInterface)
-        self.check_card = Clock.schedule_interval(self.readcard, 1)
-        self.check_full = Clock.schedule_interval(self.isfull, 1)
+        Clock.schedule_interval(self.readcard, 1)
+        Clock.schedule_interval(self.isfull, 1)
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
-        id1.ID=self.enterIDText.text
-        self.enterIDText.text=''
         #update ID
+        ID = self.enterIDText.text
+        info = return_points(ID)
         # modify the current screen to a different "name"
-        if self.manager.current == 'welcome':
+        if self.manager.current == 'welcome' and info != False:
+            identity.ID = info['ID']
+            identity.name = info['name']
+            identity.points = info['points']
+            global startpoints, starttime
+            startpoints = getGram()
+            starttime = time()
+            self.enterIDText.text = ''
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
+        elif info == False:
+            self.Welcome.text = "'[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]'\nPlease enter valid ID or Name" 
+            self.enterIDText.text = ''
+            
         
     def readcard(self, value):
       if self.manager.current == 'welcome':
 
         IDfromCard = ReturnID()
         if IDfromCard != False:
-            id1.ID=IDfromCard
-            self.enterIDText.text=''
-            #update ID
-            self.manager.transition = SlideTransition()
-            self.manager.transition.direction = 'right'
-            # modify the current screen to a different "name"
-            self.manager.current= 'user_interface'
-            sleep(1)
-
+            info = return_points(IDfromCard)
+            if info != False:
+                identity.ID = info['ID']
+                identity.name = info['name']
+                identity.points = info['points']
+                global startpoints, starttime
+                self.enterIDText.text=''
+                startpoints = getGram()
+                starttime = time()
+                self.manager.transition = SlideTransition()
+                self.manager.transition.direction = 'right'
+                # modify the current screen to a different "name"
+                self.manager.current= 'user_interface'
         
     def isfull(self, value):
         if self.manager.current == 'welcome' or self.manager.current == 'full_bin':
@@ -101,33 +129,55 @@ class UserInterface(Screen):
         #information of the person
         self.information = GridLayout(cols=2)
         ID = Label(text='ID')
-        self.IDText = Label(text='0')
+        self.IDText = Label(text=identity.name)
         currentPoint = Label(text='Current Points')
-        self.currentPointText = Label(text='111',#return_points(IDText,"points"),
+        self.currentPointText = Label(text=str(identity.points),#return_points(IDText,"points"),
                                  color=(1,0,0,1))
         self.information.add_widget(ID)
         self.information.add_widget(self.IDText)
         self.information.add_widget(currentPoint)
         self.information.add_widget(self.currentPointText)
         # instruction
-        instruction = Label(text="Throw the trash in the bin. Press Quit to exit")
+        self.instruction = Label(text="Throw the trash in the bin. Press Quit to exit")
         #quit button
         self.Quit = Button(text="Quit")
         #Add
         self.layout.add_widget(self.information)
-        self.layout.add_widget(instruction)
+        self.layout.add_widget(self.instruction)
         self.layout.add_widget(self.Quit)
-
         #bind exit
         self.Quit.bind(on_press=self.change_to_Welcome)
         self.add_widget(self.layout)
+        Clock.schedule_interval(self.update_name_points, 1)
+
         
-    def update_id_and_points(self,value):
-        self.IDText.text=id1.ID
-        #self.currentPointText=return_points(IDText,"points")
+    def update_name_points(self, value):
+        if self.manager.current == "user_interface":
+            self.IDText.text=identity.name
+            self.currentPointText.text=str(identity.points)
+            global startpoints, starttime, tolerance
+            newpoints = getGram()
+            if startpoints > 100:
+                tolerance = 0.1 * startpoints
+            if newpoints > startpoints + tolerance or newpoints < startpoints - tolerance:
+                identity.points += newpoints - startpoints
+                startpoints = newpoints
+                starttime = time()
+            newtime = time()
+            timelapse = newtime - starttime
+            if timetol > timelapse >= timetol - 5:
+                self.instruction.text = "Quit in %is" % int(timetol + 1 - timelapse)
+            elif timelapse < 5:
+                self.instruction.text = "Throw the trash in the bin. Press Quit to exit"
+            else:
+                self.change_to_Welcome(0)
+                
+            
 
     def change_to_Welcome(self,value):
-        id1.ID='0'
+        add_points(identity.ID, identity.points)
+        print identity.points
+        identity.clear()
         self.manager.transition = SlideTransition()
         self.manager.transition.direction = 'left'
         # modify the current screen to a different "name"
