@@ -18,6 +18,11 @@ from kivy.clock import Clock
 from ValidId import return_points
 from Ultrasonic_Sensor import is_full
 
+import sys
+sys.path.append('../MFRC522-python')
+from Read import ReturnID
+
+
 class IDstorage(object):
     def __init__(self,ID='0'):
         self.ID=ID
@@ -42,6 +47,8 @@ class Welcome(Screen):
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
         self.enterButton.bind(on_press=self.change_to_UserInterface)
+        self.check_full = Clock.schedule_interval(self.isfull, 2)
+        self.check_card = Clock.schedule_interval(self.readcard, 3)
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
@@ -52,6 +59,24 @@ class Welcome(Screen):
         # modify the current screen to a different "name"
         self.manager.current= 'user_interface'
 
+    def readcard(self, value):
+        IDfromCard = ReturnID()
+        if IDfromCard != False:
+            id1.ID=IDfromCard
+            self.enterIDText.text=''
+            #update ID
+            self.manager.transition.direction = 'right'
+            # modify the current screen to a different "name"
+            self.manager.current= 'user_interface'
+            self.check_card.cancel()
+            self.check_full.cancel()
+
+        
+    def isfull(self, value):
+        if is_full():
+            self.manager.current = "full_bin"
+        else:
+            self.manager.current = "welcome"
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
 
@@ -115,7 +140,6 @@ class SwitchScreenApp(App):
             sm.add_widget(fb)
             sm.current='welcome'
             #update the id and the currentPoints
-            Clock.schedule_interval(ui.update_id_and_points, 2 / 5)
 #            while is_full():
 #                sm.current='full_bin'
             return sm
