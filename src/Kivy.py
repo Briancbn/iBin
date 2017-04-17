@@ -74,7 +74,7 @@ class Welcome(Screen):
 
         
     def isfull(self, value):
-        if self.manager.current == 'welcome':
+        if self.manager.current == 'welcome' or self.manager.current == 'full_bin':
             if is_full():
                 self.manager.transition.direction = 'right'
                 self.manager.current = "full_bin"
