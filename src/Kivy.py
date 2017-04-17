@@ -142,10 +142,10 @@ class UserInterface(Screen):
         Clock.schedule_interval(self.update_name_points, 1)
 
         
-    def update_name_points(self,value):
+    def update_name_points(self, value):
         if self.manager.current == "user_interface":
-            self.currentPointText=str(identity.points)
-            self.IDText=identity.name
+            self.currentPointText.text=str(identity.points)
+            self.IDText.text=identity.name
         
 
     def change_to_Welcome(self,value):
