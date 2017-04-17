@@ -76,11 +76,11 @@ class Welcome(Screen):
             identity.points = info['points']
             global startpoints, starttime
             startpoints = getGram()
+            starttime = time()
             self.enterIDText.text = ''
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
-            starttime = time()
         elif info == False:
             self.Welcome.text = "'[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]'\nPlease enter valid ID or Name" 
             self.enterIDText.text = ''
@@ -97,13 +97,13 @@ class Welcome(Screen):
                 identity.name = info['name']
                 identity.points = info['points']
                 global startpoints, starttime
-                startpoints = getGram()
                 self.enterIDText.text=''
+                startpoints = getGram()
+                starttime = time()
                 self.manager.transition = SlideTransition()
                 self.manager.transition.direction = 'right'
                 # modify the current screen to a different "name"
                 self.manager.current= 'user_interface'
-                starttime = time()
         
     def isfull(self, value):
         if self.manager.current == 'welcome' or self.manager.current == 'full_bin':

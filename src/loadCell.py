@@ -41,7 +41,7 @@ def getValue():
 # Get average value to avoid errors of the measurements
 def averageValue():
     result = 0
-    for i in range(150):
+    for i in range(70):
         result += getValue()
     return result * 1.0 / 70.0
 
