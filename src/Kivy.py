@@ -14,6 +14,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.app import App
 from kivy.clock import Clock
+from time import sleep
 
 from ValidId import return_points
 from Ultrasonic_Sensor import is_full
@@ -60,6 +61,7 @@ class Welcome(Screen):
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
+            sleep(0.5)
         
     def readcard(self, value):
       if self.manager.current == 'welcome':
@@ -73,6 +75,7 @@ class Welcome(Screen):
             self.manager.transition.direction = 'right'
             # modify the current screen to a different "name"
             self.manager.current= 'user_interface'
+            sleep(0.5)
 
         
     def isfull(self, value):
@@ -80,9 +83,11 @@ class Welcome(Screen):
             if is_full():
                 self.manager.transition = NoTransition()
                 self.manager.current = "full_bin"
+                sleep(0.5)
             else:
                 self.manager.transition = NoTransition()
                 self.manager.current = "welcome"
+                sleep(0.5)
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
 
@@ -124,6 +129,7 @@ class UserInterface(Screen):
         self.manager.transition = NoTransition()
         # modify the current screen to a different "name"
         self.manager.current= 'welcome'
+        sleep(0.5)
 
 
 class FullBin(Screen):
