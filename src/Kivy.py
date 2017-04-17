@@ -52,7 +52,7 @@ class Welcome(Screen):
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
-        self.layout.add_widget(Welcome)
+        self.layout.add_widget(self.Welcome)
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
         self.enterButton.bind(on_press=self.change_to_UserInterface)
