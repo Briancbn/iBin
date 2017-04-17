@@ -6,7 +6,7 @@ Created on Sun Apr  9 22:21:05 2017
 @author: ZHI_WANG
 """
 
-from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition, NoTransition
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
@@ -25,17 +25,25 @@ from Read import ReturnID
 
 
 class IDstorage(object):
-    def __init__(self,ID='0'):
-        self.ID=ID
+    def __init__(self):
+        self.ID=''
+        self.name = ''
+        self.points = 0
+    
+    def clear(self):
+        self.ID=''
+        self.name = ''
+        self.points = 0
 #create an ID object
-id1=IDstorage()
+
+identity=IDstorage()
 
 class Welcome(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
-        Welcome = Label(text='[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]',
+        self.Welcome = Label(text='[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]',
                         color = (0,0,1,1))
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal')
@@ -53,28 +61,38 @@ class Welcome(Screen):
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
-        id1.ID=self.enterIDText.text
-        self.enterIDText.text=''
         #update ID
+        ID = self.enterIDText.text
+        info = return_points(ID)
         # modify the current screen to a different "name"
-        if self.manager.current == 'welcome':
+        if self.manager.current == 'welcome' and info != False:
+            identity.ID = info['ID']
+            identity.name = info['name']
+            identity.points = info['points']
+            self.enterIDText.text = ''
             self.manager.transition = SlideTransition()
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
+        elif info == False:
+            self.Welcome.text += "\nPlease enter valid ID or Name" 
+            
         
     def readcard(self, value):
       if self.manager.current == 'welcome':
 
         IDfromCard = ReturnID()
         if IDfromCard != False:
-            id1.ID=IDfromCard
-            self.enterIDText.text=''
-            #update ID
-            self.manager.transition = SlideTransition()
-            self.manager.transition.direction = 'right'
-            # modify the current screen to a different "name"
-            self.manager.current= 'user_interface'
-            sleep(1)
+            info = return_points(IDfromCard)
+            if info != False
+                identity.ID = info['ID']
+                identity.name = info['name']
+                identity.points = info['points']
+                self.enterIDText.text=''
+                self.manager.transition = SlideTransition()
+                self.manager.transition.direction = 'right'
+                # modify the current screen to a different "name"
+                self.manager.current= 'user_interface'
+                sleep(1)
 
         
     def isfull(self, value):
@@ -101,9 +119,9 @@ class UserInterface(Screen):
         #information of the person
         self.information = GridLayout(cols=2)
         ID = Label(text='ID')
-        self.IDText = Label(text='0')
+        self.IDText = Label(text=identity.name)
         currentPoint = Label(text='Current Points')
-        self.currentPointText = Label(text='111',#return_points(IDText,"points"),
+        self.currentPointText = Label(text=identity.points,#return_points(IDText,"points"),
                                  color=(1,0,0,1))
         self.information.add_widget(ID)
         self.information.add_widget(self.IDText)
@@ -122,12 +140,12 @@ class UserInterface(Screen):
         self.Quit.bind(on_press=self.change_to_Welcome)
         self.add_widget(self.layout)
         
-    def update_id_and_points(self,value):
-        self.IDText.text=id1.ID
+    def update_points(self,value):
+        pass
         #self.currentPointText=return_points(IDText,"points")
 
     def change_to_Welcome(self,value):
-        id1.ID='0'
+        identity.clear()
         self.manager.transition = SlideTransition()
         self.manager.transition.direction = 'left'
         # modify the current screen to a different "name"

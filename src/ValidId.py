@@ -11,10 +11,12 @@ firebase.put("/", "DW" , database_id)
 deek = firebase.get("/DW")
 
 
-def return_points(ID, points):
+def return_points(ID):
     for entry in deek:
         if ID == entry["ID"]:
-           return  entry[points]
+            return  entry
+        if ID == entry["name"]:
+            return  entry
     return False
   
 def add_points(ID, newpoints):
