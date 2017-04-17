@@ -47,21 +47,22 @@ class Welcome(Screen):
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
         self.enterButton.bind(on_press=self.change_to_UserInterface)
-        self.check_full = Clock.schedule_interval(self.isfull, 0.1)
         self.check_card = Clock.schedule_interval(self.readcard, 0.1)
+        self.check_full = Clock.schedule_interval(self.isfull, 0.1)
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
         id1.ID=self.enterIDText.text
         self.enterIDText.text=''
         #update ID
-        self.manager.transition.direction = 'right'
         # modify the current screen to a different "name"
-        self.manager.current= 'user_interface'
-        self.check_card.cancel()
-        self.check_full.cancel()
-
+        if self.manager.current == 'welcome':
+            self.manager.transition.direction = 'right'
+            self.manager.current= 'user_interface'
+        
     def readcard(self, value):
+      if self.manager.current == 'welcome':
+
         IDfromCard = ReturnID()
         if IDfromCard != False:
             id1.ID=IDfromCard
@@ -70,18 +71,16 @@ class Welcome(Screen):
             self.manager.transition.direction = 'right'
             # modify the current screen to a different "name"
             self.manager.current= 'user_interface'
-            self.check_card.cancel()
-            self.check_full.cancel()
 
         
     def isfull(self, value):
-        if is_full():
-            self.manager.transition.direction = 'right'
-            self.manager.current = "full_bin"
-            print '    full'
-        else:
-            self.manager.transition.direction = 'right'
-            self.manager.current = "welcome"
+        if self.manager.current == 'welcome':
+            if is_full():
+                self.manager.transition.direction = 'right'
+                self.manager.current = "full_bin"
+            else:
+                self.manager.transition.direction = 'right'
+                self.manager.current = "welcome"
 #    def quit_app(self, value):
 #        App.get_running_app().stop()
 

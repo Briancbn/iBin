@@ -29,7 +29,7 @@ def ReturnID():
     starttime = time()
     # This loop keeps checking for chips. If one is near it will get the UID and authenticate
     while continue_reading:
-        if time() - starttime >= 0.1:
+        if time() - starttime >= 0.05:
             return False
             break
         
