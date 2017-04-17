@@ -41,9 +41,9 @@ def getValue():
 # Get average value to avoid errors of the measurements
 def averageValue():
     result = 0
-    for i in range(70):
+    for i in range(40):
         result += getValue()
-    return result * 1.0 / 70.0
+    return result * 1.0 / 40.0
 
 GPIO.output(SCK,GPIO.HIGH)
 sleep(0.0001)
