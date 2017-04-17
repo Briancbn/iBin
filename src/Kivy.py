@@ -56,8 +56,8 @@ class Welcome(Screen):
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
         self.enterButton.bind(on_press=self.change_to_UserInterface)
-        self.check_card = Clock.schedule_interval(self.readcard, 1)
-        self.check_full = Clock.schedule_interval(self.isfull, 1)
+        Clock.schedule_interval(self.readcard, 1)
+        Clock.schedule_interval(self.isfull, 1)
         self.add_widget(self.layout)
     
     def change_to_UserInterface(self, value):
@@ -139,10 +139,14 @@ class UserInterface(Screen):
         #bind exit
         self.Quit.bind(on_press=self.change_to_Welcome)
         self.add_widget(self.layout)
+        Clock.schedule_interval(self.update_name_points, 1)
+
         
-    def update_points(self,value):
-        pass
-        #self.currentPointText=return_points(IDText,"points")
+    def update_name_points(self,value):
+        if self.manager.current == "user_interface":
+            self.currentPointText=str(identity.points)
+            self.IDText=identity.name
+        
 
     def change_to_Welcome(self,value):
         identity.clear()
