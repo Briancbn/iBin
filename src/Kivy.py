@@ -121,7 +121,7 @@ class UserInterface(Screen):
         ID = Label(text='ID')
         self.IDText = Label(text=identity.name)
         currentPoint = Label(text='Current Points')
-        self.currentPointText = Label(text=identity.points,#return_points(IDText,"points"),
+        self.currentPointText = Label(text=str(identity.points),#return_points(IDText,"points"),
                                  color=(1,0,0,1))
         self.information.add_widget(ID)
         self.information.add_widget(self.IDText)
