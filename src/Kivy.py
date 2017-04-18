@@ -17,7 +17,7 @@ from kivy.clock import Clock
 from time import sleep, time
 #from kivy.graphics import Color, Rectangle
 from kivy.core.window import Window
-from kivy.core.image import Image
+from kivy.uix.image import Image
 
 from ValidId import return_points, add_points
 from Ultrasonic_Sensor import is_full
@@ -234,9 +234,8 @@ class FullBin(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout= BoxLayout(orientation='vertical')
-        self.image = Image(source="/Users/laynew/Desktop/Bg.png"
-                      #size_hint = (.7,1)
-                      )
+        self.image = Image(source="/Users/laynew/Desktop/Bg.png")
+                      #size_hint = (.7,1))
         self.warning=Label(text="[size=40]The bin is full![/size]",
                           color=(1,0,0,1),
                           #size_hint = (.3,1),
