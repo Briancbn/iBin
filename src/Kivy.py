@@ -49,7 +49,7 @@ class Welcome(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
         self.Welcome = Label(text='[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]',
-                        color = (0,0,1,1))
+                        color = (0,0,1,1), markup = True)
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal')
         self.enterIDText = TextInput(multiline=False)
