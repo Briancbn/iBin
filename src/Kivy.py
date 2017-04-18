@@ -67,7 +67,7 @@ class Welcome(Screen):
                                      font_size = 30,
                                      size_hint = (.7,1))
         self.enter = Button(text='OK',
-                            background_color = [0.603922,0.803922,0.196078,1],#green
+                            background_color = [(0.564706, 0.933333, 0.564706,1],#green
                             size_hint  = (.2,1),
                             height = int(Window.height)/8)
         self.tapeCardInstruction = Label(text='Type you card\non the right!',
@@ -154,7 +154,7 @@ class UserInterface(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
         self.information = GridLayout(cols=2)
-        ID = Label(text='[b]ID[/b]',
+        ID = Label(text='ID',
                    color = (0,0,0,1),
                    font_size = 30,
                    markup = True)
@@ -175,7 +175,7 @@ class UserInterface(Screen):
         # instruction
         self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit",
                                  color = (0,0,0,1),
-                                 font_size = 30,
+                                 font_size = 25,
                                  markup = True)
         #quit button
         self.Quit = BoxLayout(cols=1)
@@ -236,7 +236,7 @@ class FullBin(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout= BoxLayout(orientation='vertical')
-        self.image = Image(source="Documents/iBin/src/Bg.png")
+        self.image = Image(source="/Documents/iBin/src/Bg.png")
                       #size_hint = (.7,1))
         self.warning=Label(text="[size=40]The bin is full![/size]",
                           color=(1,0,0,1),
