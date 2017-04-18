@@ -49,26 +49,26 @@ class Welcome(Screen):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
         with self.canvas.before:
-            Color(1,1,0)
+            Color(1,1,0,1)
+            Rectangle(size=self.size, pos=self.pos)
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
                              color = (1, 0.647059, 0,1), #orange
-                             markup = True, 
-                             size_hint=(.8, 1))
+                             markup = True)
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal',
                             #padding = [5,3,5,3],
-                            size_hint = (.3, 1),
-                            spacing  = 20)
+                            #size_hint = (.3, 1),
+                            spacing  = 30)
         self.enterIDText = TextInput(multiline=False,
                                      font_size = 30,
                                      size_hint = (.8,1))
         self.enter = Button(text='OK',
-                            padding = (2,5),
                             background_color = [0.564706, 0.933333, 0.564706,1],
                             size_hint  = (.2,1))
         self.tapeCardInstruction = Label(text='Type you card on the right!',
-                                         font_size = 25)
+                                         font_size = 25,
+                                         size_hint = (None,None))
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enter)
         enterID.add_widget(self.tapeCardInstruction)
@@ -145,7 +145,8 @@ class UserInterface(Screen):
         #information of the person
         self.information = GridLayout(cols=2)
         with self.canvas.before:
-            Color(1,0.894118,0.882353,0.7)        
+            Color(1,0.894118,0.882353,0.7)  
+            Rectangle(size=self.size, pos=self.pos)
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
