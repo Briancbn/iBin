@@ -52,13 +52,14 @@ class Welcome(Screen):
                              color = (1, 0.647059, 0,1), #orange
                              markup = True, 
                              size_hint=(.7, 1),
-                             background_color = [0,0,0,1])
+                             background_color = [1,1,1,1])
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal',
-                            padding = [5,3,5,3],
-                            size_hint = (.4, 1))
+                            #padding = [5,3,5,3],
+                            size_hint = (.3, 1))
         self.enterIDText = TextInput(multiline=False,
-                                     padding = (3,3))
+                                     padding = (3,3),
+                                     size = 30)
         self.enterButton = Button(text='OK',
                                   padding = (2,5),
                                   background_color = [0.564706, 0.933333, 0.564706,1])
@@ -90,7 +91,7 @@ class Welcome(Screen):
             self.manager.transition.direction = 'right'
             self.manager.current= 'user_interface'
         elif info == False:
-            self.Welcome.text = "'[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]'\nPlease enter valid ID or Name" 
+            self.Welcome.text = "[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]\n[color=FF6347]Please enter valid ID or Name" 
             self.enterIDText.text = ''
             
         
@@ -135,13 +136,14 @@ class UserInterface(Screen):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
-        self.information = GridLayout(cols=2)
-        ID = Label(text='[b]ID[\b]',
+        self.information = GridLayout(cols=2,
+                                      background_color = [1,0.894118,0.882353,0.7])
+        ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
         self.IDText = Label(text=identity.name,
                             color = (0,0,0,1))#black
-        currentPoint = Label(text='[b]Current Points[\b]',
+        currentPoint = Label(text='[b]Current Points[/b]',
                              color = (0,0,0,1),#black
                              markup = True)
         self.currentPointText = Label(text=str(identity.points),#return_points(IDText,"points"),
@@ -151,12 +153,12 @@ class UserInterface(Screen):
         self.information.add_widget(currentPoint)
         self.information.add_widget(self.currentPointText)
         # instruction
-        self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[\b][\color] to exit",
+        self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit",
                                  markup = True)
         #quit button
         self.Quit = BoxLayout(cols=1,
                               padding = [20,3,0,0])
-        self.QuitButton = Button(text="[size=30]Quit[\size]",
+        self.QuitButton = Button(text="[size=30]Quit[/size]",
                                  color = (1, 0.388235, 0.278431,1),
                                  markup = True)
         self.Quit.add_widget(self.QuitButton)
@@ -187,7 +189,7 @@ class UserInterface(Screen):
             if timetol > timelapse >= timetol - 5:
                 self.instruction.text = "Quit in %is" % int(timetol + 1 - timelapse)
             elif timelapse < 5:
-                self.instruction.text = "Throw the trash in the bin. Press [color=FF6347][b]Quit[\b][\color] to exit"
+                self.instruction.text = "Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit"
             else:
                 self.change_to_Welcome(0)
                 
