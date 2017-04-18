@@ -48,30 +48,30 @@ class Welcome(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
-        with self.canvas:
-            Color(1,1,1,1)
+        with self.canvas.before:
+            Color(1,1,0)
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
                              color = (1, 0.647059, 0,1), #orange
                              markup = True, 
-                             size_hint=(.7, 1))
+                             size_hint=(.8, 1))
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal',
                             #padding = [5,3,5,3],
                             size_hint = (.3, 1),
-                            spacing  = 10)
+                            spacing  = 20)
         self.enterIDText = TextInput(multiline=False,
-                                     padding = (3,3),
                                      font_size = 30,
-                                     size = (2,2),
                                      size_hint = (.8,1))
         self.enter = Button(text='OK',
                             padding = (2,5),
                             background_color = [0.564706, 0.933333, 0.564706,1],
-                            border = [10,10,10,10],
                             size_hint  = (.2,1))
+        self.tapeCardInstruction = Label(text='Type you card on the right!',
+                                         font_size = 25)
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enter)
+        enterID.add_widget(self.tapeCardInstruction)
         #add Welcome and EnterID in the layout
         self.layout.add_widget(self.Welcome)
         self.layout.add_widget(enterID)
@@ -144,7 +144,7 @@ class UserInterface(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
         self.information = GridLayout(cols=2)
-        with self.canvas:
+        with self.canvas.before:
             Color(1,0.894118,0.882353,0.7)        
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
