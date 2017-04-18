@@ -15,8 +15,9 @@ from kivy.uix.label import Label
 from kivy.app import App
 from kivy.clock import Clock
 from time import sleep, time
-from kivy.graphics import Color, Rectangle
+#from kivy.graphics import Color, Rectangle
 from kivy.core.window import Window
+from kivy.core.image import Image
 
 from ValidId import return_points, add_points
 from Ultrasonic_Sensor import is_full
@@ -55,27 +56,34 @@ class Welcome(Screen):
                              color = (1, 0.647059, 0,1), #orange
                              markup = True)
         #add the enter boxlayout
+        self.bottomPart = BoxLayout(orientation='vertical')
+        blank1 = Label()
+        blank2 = Label()
         enterID = BoxLayout(orientation='horizontal',
                             #padding = [5,3,5,3],
                             #size_hint = (.3, 1),
                             spacing  = 30)
         self.enterIDText = TextInput(multiline=False,
                                      font_size = 30,
-                                     size_hint = (.7,1),
-                                     height = int(Window.height)/10)
+                                     size_hint = (.7,1))
         self.enter = Button(text='OK',
-                            background_color = [0.564706, 0.933333, 0.564706,1],
+                            background_color = [0.603922,0.803922,0.196078,1],#green
                             size_hint  = (.2,1),
                             height = int(Window.height)/8)
         self.tapeCardInstruction = Label(text='Type you card\non the right!',
+                                         color = (1, 0.647059, 0,1),
                                          font_size = 25,
                                          size_hint = (0.5,1))
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enter)
         enterID.add_widget(self.tapeCardInstruction)
-        #add Welcome and EnterID in the layout
+        #add the 3 components to bottomPart
+        self.bottomPart.add_widget(blank1)
+        self.bottomPart.add_widget(enterID)
+        self.bottomPart.add_widget(blank2)
+        #add Welcome and bottom Part in the layout
         self.layout.add_widget(self.Welcome)
-        self.layout.add_widget(enterID)
+        self.layout.add_widget(self.bottomPart)
         #bind the enterButton to change screen function
         self.enter.bind(on_press=self.change_to_UserInterface)
         Clock.schedule_interval(self.readcard, 1)
@@ -148,20 +156,25 @@ class UserInterface(Screen):
         self.information = GridLayout(cols=2)
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
+                   font_size = 30,
                    markup = True)
         self.IDText = Label(text=identity.name,
+                            font_size = 30,
                             color = (0,0,0,1))#black
-        currentPoint = Label(text='[b]Current Points[/b]',
+        currentPoint = Label(text='Current Points',
                              color = (0,0,0,1),#black
+                             font_size = 30,
                              markup = True)
         self.currentPointText = Label(text=str(identity.points),#return_points(IDText,"points"),
-                                 color=(0.564706, 0.933333, 0.564706,1))#green
+                                      font_size = 40,
+                                      color=(0.564706, 0.933333, 0.564706,1))#green
         self.information.add_widget(ID)
         self.information.add_widget(self.IDText)
         self.information.add_widget(currentPoint)
         self.information.add_widget(self.currentPointText)
         # instruction
         self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit",
+                                 color = (0,0,0,1),
                                  markup = True)
         #quit button
         self.Quit = BoxLayout(cols=1)
@@ -220,9 +233,16 @@ class UserInterface(Screen):
 class FullBin(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
-        self.layout=Label(text="The bin is full!",
-                          color=(1,0,0,1))
-        # Add your code below to add the label and the button
+        self.layout= BoxLayout(orientation='vertical')
+        image = Image(source="/Users/laynew/Desktop/Bg.png",
+                      size_hint = (0.7,1))
+        self.warning=Label(text="[size=40]The bin is full![/size]",
+                          color=(1,0,0,1),
+                          size_hint = (0.3,1),
+                          markup=True)
+        #add the image and the warining in the layout
+        self.layout.add_widget(image)
+        self.layout.add_widget(self.warning)
         self.add_widget(self.layout)
         
 
