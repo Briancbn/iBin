@@ -63,6 +63,7 @@ class Welcome(Screen):
                             #padding = [5,3,5,3],
                             #size_hint = (.3, 1),
                             spacing  = 30)
+        blank3 = Label(size_hint = (0.1,1))
         self.enterIDText = TextInput(multiline=False,
                                      font_size = 30,
                                      size_hint = (.7,1))
@@ -74,6 +75,7 @@ class Welcome(Screen):
                                          color = (1, 0.647059, 0,1),
                                          font_size = 25,
                                          size_hint = (0.5,1))
+        enterID.add_widget(blank3)
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enter)
         enterID.add_widget(self.tapeCardInstruction)
