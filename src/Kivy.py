@@ -175,12 +175,12 @@ class UserInterface(Screen):
         # instruction
         self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit",
                                  color = (0,0,0,1),
-                                 size = 30,
+                                 font_size = 30,
                                  markup = True)
         #quit button
         self.Quit = BoxLayout(cols=1)
         self.spaceLabel = Label(Text='',
-                                size = 30,
+                                font_size = 30,
                                 size_hint=(.8,1))
         self.QuitButton = Button(text="[size=30]Quit[/size]",
                                  color = (1, 0.388235, 0.278431,1),
@@ -236,7 +236,7 @@ class FullBin(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout= BoxLayout(orientation='vertical')
-        self.image = Image(source="iBin/src/Bg.png")
+        self.image = Image(source="Documents/iBin/src/Bg.png")
                       #size_hint = (.7,1))
         self.warning=Label(text="[size=40]The bin is full![/size]",
                           color=(1,0,0,1),
