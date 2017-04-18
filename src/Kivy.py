@@ -58,9 +58,9 @@ class Welcome(Screen):
                             padding = [5,3,5,3],
                             size_hint = (.4, 1))
         self.enterIDText = TextInput(multiline=False,
-                                     padding = [0,3,0,3])
+                                     padding = (3,3))
         self.enterButton = Button(text='OK',
-                                  padding = [5,0,5,0],
+                                  padding = (2,5),
                                   background_color = [144,238,144,1])
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
@@ -157,7 +157,7 @@ class UserInterface(Screen):
         self.Quit = Button(text="Quit",
                            size = 30,
                            color = (255,99,71,1),
-                           padding = [20,3,0,0])
+                           border = (20,3,0,0))
         #Add
         self.layout.add_widget(self.information)
         self.layout.add_widget(self.instruction)
