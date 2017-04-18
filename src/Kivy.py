@@ -236,7 +236,7 @@ class FullBin(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout= BoxLayout(orientation='vertical')
-        self.image = Image(source="/Users/laynew/Desktop/Bg.png")
+        self.image = Image(source="iBin/src/Bg.png")
                       #size_hint = (.7,1))
         self.warning=Label(text="[size=40]The bin is full![/size]",
                           color=(1,0,0,1),
