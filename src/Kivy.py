@@ -234,16 +234,16 @@ class FullBin(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout= BoxLayout(orientation='vertical')
-        image = Image(source="/Users/laynew/Desktop/Bg.png",
+        self.image = Image(source="/Users/laynew/Desktop/Bg.png"
                       #size_hint = (.7,1)
                       )
-        warning=Label(text="[size=40]The bin is full![/size]",
+        self.warning=Label(text="[size=40]The bin is full![/size]",
                           color=(1,0,0,1),
                           #size_hint = (.3,1),
                           markup=True)
         #add the image and the warining in the layout
-        self.layout.add_widget(image)
-        self.layout.add_widget(warning)
+        self.layout.add_widget(self.image)
+        self.layout.add_widget(self.warning)
         self.add_widget(self.layout)
         
 
