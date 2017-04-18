@@ -15,6 +15,7 @@ from kivy.uix.label import Label
 from kivy.app import App
 from kivy.clock import Clock
 from time import sleep, time
+from kivy.graphics import Color, Rectangle
 
 from ValidId import return_points, add_points
 from Ultrasonic_Sensor import is_full
@@ -47,31 +48,35 @@ class Welcome(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
+        with self.canvas:
+            Color(1,1,1,1)
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
                              color = (1, 0.647059, 0,1), #orange
                              markup = True, 
-                             size_hint=(.7, 1),
-                             background_color = [1,1,1,1])
+                             size_hint=(.7, 1))
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal',
                             #padding = [5,3,5,3],
-                            size_hint = (.3, 1))
+                            size_hint = (.3, 1),
+                            spacing  = 10)
         self.enterIDText = TextInput(multiline=False,
                                      padding = (3,3),
                                      font_size = 30,
-                                     size = (10,2))
-        self.enterButton = Button(text='OK',
-                                  padding = (2,5),
-                                  background_color = [0.564706, 0.933333, 0.564706,1],
-                                  border = [10,10,10,10])
+                                     size = (2,2),
+                                     size_hint = (.8,1))
+        self.enter = Button(text='OK',
+                            padding = (2,5),
+                            background_color = [0.564706, 0.933333, 0.564706,1],
+                            border = [10,10,10,10],
+                            size_hint  = (.2,1))
         enterID.add_widget(self.enterIDText)
-        enterID.add_widget(self.enterButton)
+        enterID.add_widget(self.enter)
         #add Welcome and EnterID in the layout
         self.layout.add_widget(self.Welcome)
         self.layout.add_widget(enterID)
         #bind the enterButton to change screen function
-        self.enterButton.bind(on_press=self.change_to_UserInterface)
+        self.enter.bind(on_press=self.change_to_UserInterface)
         Clock.schedule_interval(self.readcard, 1)
         Clock.schedule_interval(self.isfull, 1)
         self.add_widget(self.layout)
@@ -138,8 +143,9 @@ class UserInterface(Screen):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
-        self.information = GridLayout(cols=2,
-                                      background_color = [1,0.894118,0.882353,0.7])
+        self.information = GridLayout(cols=2)
+        with self.canvas:
+            Color(1,0.894118,0.882353,0.7)        
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
