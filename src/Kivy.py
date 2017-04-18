@@ -49,7 +49,7 @@ class Welcome(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
-                             color = (255,165,0,1), #orange
+                             color = (1, 0.647059, 0,1), #orange
                              markup = True, 
                              size_hint=(.7, 1),
                              background_color = [0,0,0,1])
@@ -61,7 +61,7 @@ class Welcome(Screen):
                                      padding = (3,3))
         self.enterButton = Button(text='OK',
                                   padding = (2,5),
-                                  background_color = [144,238,144,1])
+                                  background_color = [0.564706, 0.933333, 0.564706,1])
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
@@ -145,7 +145,7 @@ class UserInterface(Screen):
                              color = (0,0,0,1),#black
                              markup = True)
         self.currentPointText = Label(text=str(identity.points),#return_points(IDText,"points"),
-                                 color=(144,238,144,1))#green
+                                 color=(0.564706, 0.933333, 0.564706,1))#green
         self.information.add_widget(ID)
         self.information.add_widget(self.IDText)
         self.information.add_widget(currentPoint)
@@ -156,9 +156,9 @@ class UserInterface(Screen):
         #quit button
         self.Quit = BoxLayout(cols=1,
                               padding = [20,3,0,0])
-        self.QuitButton = Button(text="Quit",
-                           size = 30,
-                           color = (255,99,71,1))
+        self.QuitButton = Button(text="[size=30]Quit[\size]",
+                                 color = (1, 0.388235, 0.278431,1),
+                                 markup = True)
         self.Quit.add_widget(self.QuitButton)
         #Add
         self.layout.add_widget(self.information)
@@ -187,7 +187,7 @@ class UserInterface(Screen):
             if timetol > timelapse >= timetol - 5:
                 self.instruction.text = "Quit in %is" % int(timetol + 1 - timelapse)
             elif timelapse < 5:
-                self.instruction.text = "Throw the trash in the bin. Press Quit to exit"
+                self.instruction.text = "Throw the trash in the bin. Press [color=FF6347][b]Quit[\b][\color] to exit"
             else:
                 self.change_to_Welcome(0)
                 
