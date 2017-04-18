@@ -179,11 +179,11 @@ class UserInterface(Screen):
         #quit button
         self.Quit = BoxLayout(cols=1)
         self.spaceLabel = Label(Text='',
-                                size_hint=(0.8,1))
+                                size_hint=(.8,1))
         self.QuitButton = Button(text="[size=30]Quit[/size]",
                                  color = (1, 0.388235, 0.278431,1),
                                  markup = True,
-                                 size_hint=(0.2,1))
+                                 size_hint=(.2,1))
         self.Quit.add_widget(self.spaceLabel)
         self.Quit.add_widget(self.QuitButton)
         #Add
@@ -235,14 +235,14 @@ class FullBin(Screen):
         Screen.__init__(self, **kwargs)
         self.layout= BoxLayout(orientation='vertical')
         image = Image(source="/Users/laynew/Desktop/Bg.png",
-                      size_hint = (0.7,1))
-        self.warning=Label(text="[size=40]The bin is full![/size]",
+                      size_hint = (.7,1))
+        warning=Label(text="[size=40]The bin is full![/size]",
                           color=(1,0,0,1),
-                          size_hint = (0.3,1),
+                          size_hint = (.3,1),
                           markup=True)
         #add the image and the warining in the layout
         self.layout.add_widget(image)
-        self.layout.add_widget(self.warning)
+        self.layout.add_widget(warning)
         self.add_widget(self.layout)
         
 
