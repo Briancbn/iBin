@@ -154,16 +154,18 @@ class UserInterface(Screen):
         self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[\b][\color] to exit",
                                  markup = True)
         #quit button
-        self.Quit = Button(text="Quit",
+        self.Quit = BoxLayout(cols=1,
+                              padding = [20,3,0,0])
+        self.QuitButton = Button(text="Quit",
                            size = 30,
-                           color = (255,99,71,1),
-                           border = (20,3,0,0))
+                           color = (255,99,71,1))
+        self.Quit.add_widget(self.QuitButton)
         #Add
         self.layout.add_widget(self.information)
         self.layout.add_widget(self.instruction)
         self.layout.add_widget(self.Quit)
         #bind exit
-        self.Quit.bind(on_press=self.change_to_Welcome)
+        self.QuitButton.bind(on_press=self.change_to_Welcome)
         self.add_widget(self.layout)
         Clock.schedule_interval(self.update_name_points, 1)
 
