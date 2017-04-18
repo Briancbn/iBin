@@ -49,17 +49,19 @@ class Welcome(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
-                        color = (0,0,1,1), 
-                        markup = True, 
-                        size_hint=(.6, 1),
-                        background_color = (0,0,0,0))
+                             color = (255,165,0,1), #orange
+                             markup = True, 
+                             size_hint=(.7, 1),
+                             background_color = [0,0,0,1])
         #add the enter boxlayout
         enterID = BoxLayout(orientation='horizontal',
-                            padding = 20,
+                            padding = [5,3,5,3],
                             size_hint = (.4, 1))
-        self.enterIDText = TextInput(multiline=False)
+        self.enterIDText = TextInput(multiline=False,
+                                     padding = [0,3,0,3])
         self.enterButton = Button(text='OK',
-                                  background_color = (144,238,144))
+                                  padding = [5,0,5,0],
+                                  background_color = [144,238,144,1])
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
@@ -134,19 +136,28 @@ class UserInterface(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
         self.information = GridLayout(cols=2)
-        ID = Label(text='ID')
-        self.IDText = Label(text=identity.name)
-        currentPoint = Label(text='Current Points')
+        ID = Label(text='[b]ID[\b]',
+                   color = (0,0,0,1),
+                   markup = True)
+        self.IDText = Label(text=identity.name,
+                            color = (0,0,0,1))#black
+        currentPoint = Label(text='[b]Current Points[\b]',
+                             color = (0,0,0,1),#black
+                             markup = True)
         self.currentPointText = Label(text=str(identity.points),#return_points(IDText,"points"),
-                                 color=(1,0,0,1))
+                                 color=(144,238,144,1))#green
         self.information.add_widget(ID)
         self.information.add_widget(self.IDText)
         self.information.add_widget(currentPoint)
         self.information.add_widget(self.currentPointText)
         # instruction
-        self.instruction = Label(text="Throw the trash in the bin. Press Quit to exit")
+        self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[\b][\color] to exit",
+                                 markup = True)
         #quit button
-        self.Quit = Button(text="Quit")
+        self.Quit = Button(text="Quit",
+                           size = 30,
+                           color = (255,99,71,1),
+                           padding = [20,3,0,0])
         #Add
         self.layout.add_widget(self.information)
         self.layout.add_widget(self.instruction)
