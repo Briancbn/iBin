@@ -145,7 +145,7 @@ class UserInterface(Screen):
         self.information = GridLayout(cols=2)
         with self.canvas.before:
             Color(1,0.894118,0.882353,0.7)  
-            Rectangle(size=10000, pos=self.pos)
+            Rectangle(size=self.size+1000, pos=self.pos)
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
