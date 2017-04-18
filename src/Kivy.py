@@ -67,7 +67,7 @@ class Welcome(Screen):
                                      font_size = 30,
                                      size_hint = (.7,1))
         self.enter = Button(text='OK',
-                            background_color = [(0.564706, 0.933333, 0.564706,1],#green
+                            background_color = [0.564706, 0.933333, 0.564706,1],#green
                             size_hint  = (.2,1),
                             height = int(Window.height)/8)
         self.tapeCardInstruction = Label(text='Type you card\non the right!',
