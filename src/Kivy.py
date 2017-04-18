@@ -146,7 +146,6 @@ class UserInterface(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
         self.information = GridLayout(cols=2)
-        Window.clearcolor=(1,0.894118,0.882353,0.7)  
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
@@ -165,11 +164,14 @@ class UserInterface(Screen):
         self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit",
                                  markup = True)
         #quit button
-        self.Quit = BoxLayout(cols=1,
-                              padding = [20,3,0,0])
+        self.Quit = BoxLayout(cols=1)
+        self.spaceLabel = Label(Text='',
+                                size_hint=(0.8,1))
         self.QuitButton = Button(text="[size=30]Quit[/size]",
                                  color = (1, 0.388235, 0.278431,1),
-                                 markup = True)
+                                 markup = True,
+                                 size_hint=(0.2,1))
+        self.Quit.add_widget(self.spaceLabel)
         self.Quit.add_widget(self.QuitButton)
         #Add
         self.layout.add_widget(self.information)
