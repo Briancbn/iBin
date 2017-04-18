@@ -175,10 +175,12 @@ class UserInterface(Screen):
         # instruction
         self.instruction = Label(text="Throw the trash in the bin. Press [color=FF6347][b]Quit[/b][/color] to exit",
                                  color = (0,0,0,1),
+                                 size = 30,
                                  markup = True)
         #quit button
         self.Quit = BoxLayout(cols=1)
         self.spaceLabel = Label(Text='',
+                                size = 30,
                                 size_hint=(.8,1))
         self.QuitButton = Button(text="[size=30]Quit[/size]",
                                  color = (1, 0.388235, 0.278431,1),
