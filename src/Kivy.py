@@ -16,6 +16,7 @@ from kivy.app import App
 from kivy.clock import Clock
 from time import sleep, time
 from kivy.graphics import Color, Rectangle
+from kivy.core.window import Window
 
 from ValidId import return_points, add_points
 from Ultrasonic_Sensor import is_full
@@ -47,10 +48,8 @@ starttime = time()
 class Welcome(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
+        Window.clearcolor = (1, 1, 1, 1)
         self.layout=BoxLayout(orientation='vertical')
-        with self.canvas.before:
-            Color(1,1,0,1)
-            Rectangle(size=self.size, pos=self.pos)
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
                              color = (1, 0.647059, 0,1), #orange
@@ -62,13 +61,13 @@ class Welcome(Screen):
                             spacing  = 30)
         self.enterIDText = TextInput(multiline=False,
                                      font_size = 30,
-                                     size_hint = (.8,1))
+                                     size_hint = (.7,1))
         self.enter = Button(text='OK',
                             background_color = [0.564706, 0.933333, 0.564706,1],
                             size_hint  = (.2,1))
-        self.tapeCardInstruction = Label(text='Type you card on the right!',
+        self.tapeCardInstruction = Label(text='Type you card\non the right!',
                                          font_size = 25,
-                                         size_hint = (None,None))
+                                         size_hint = (0.5,1))
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enter)
         enterID.add_widget(self.tapeCardInstruction)
@@ -146,7 +145,7 @@ class UserInterface(Screen):
         self.information = GridLayout(cols=2)
         with self.canvas.before:
             Color(1,0.894118,0.882353,0.7)  
-            Rectangle(size=self.size, pos=self.pos)
+            Rectangle(size=10000, pos=self.pos)
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
