@@ -59,10 +59,12 @@ class Welcome(Screen):
                             size_hint = (.3, 1))
         self.enterIDText = TextInput(multiline=False,
                                      padding = (3,3),
-                                     size = 30)
+                                     font_size = 30,
+                                     size = (10,2))
         self.enterButton = Button(text='OK',
                                   padding = (2,5),
-                                  background_color = [0.564706, 0.933333, 0.564706,1])
+                                  background_color = [0.564706, 0.933333, 0.564706,1],
+                                  border = [10,10,10,10])
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
