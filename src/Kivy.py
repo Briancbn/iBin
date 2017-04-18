@@ -48,12 +48,18 @@ class Welcome(Screen):
         Screen.__init__(self, **kwargs)
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
-        self.Welcome = Label(text='[size=30]Welcome![/size]\n[size=20]Please enter you ID below[/size]',
-                        color = (0,0,1,1), markup = True)
+        self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
+                        color = (0,0,1,1), 
+                        markup = True, 
+                        size_hint=(.6, 1),
+                        background_color = (0,0,0,0))
         #add the enter boxlayout
-        enterID = BoxLayout(orientation='horizontal')
+        enterID = BoxLayout(orientation='horizontal',
+                            padding = 20,
+                            size_hint = (.4, 1))
         self.enterIDText = TextInput(multiline=False)
-        self.enterButton = Button(text='OK')
+        self.enterButton = Button(text='OK',
+                                  background_color = (144,238,144))
         enterID.add_widget(self.enterIDText)
         enterID.add_widget(self.enterButton)
         #add Welcome and EnterID in the layout
