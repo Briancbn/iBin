@@ -61,10 +61,12 @@ class Welcome(Screen):
                             spacing  = 30)
         self.enterIDText = TextInput(multiline=False,
                                      font_size = 30,
-                                     size_hint = (.7,1))
+                                     size_hint = (.7,1),
+                                     height = int(Window.height)/10)
         self.enter = Button(text='OK',
                             background_color = [0.564706, 0.933333, 0.564706,1],
-                            size_hint  = (.2,1))
+                            size_hint  = (.2,1),
+                            height = int(Window.height)/8)
         self.tapeCardInstruction = Label(text='Type you card\non the right!',
                                          font_size = 25,
                                          size_hint = (0.5,1))
@@ -140,12 +142,11 @@ class Welcome(Screen):
 class UserInterface(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
+        
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
         self.information = GridLayout(cols=2)
-        with self.canvas.before:
-            Color(1,0.894118,0.882353,0.7)  
-            Rectangle(size=self.size+1000, pos=self.pos)
+        Window.clearcolor=(1,0.894118,0.882353,0.7)  
         ID = Label(text='[b]ID[/b]',
                    color = (0,0,0,1),
                    markup = True)
