@@ -9,6 +9,7 @@ Created on Sun Apr  9 22:21:05 2017
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
@@ -50,6 +51,8 @@ class Welcome(Screen):
     def __init__(self, **kwargs):
         Screen.__init__(self, **kwargs)
         Window.clearcolor = (1, 1, 1, 1)
+        FloatLay=FloatLayout(size=(300, 300))
+        pic1=Image(source='pic1.jpg', allow_stretch=True)
         self.layout=BoxLayout(orientation='vertical')
         #add Welcome label
         self.Welcome = Label(text='[size=50]Welcome![/size]\n[size=30]Please enter you ID below[/size]',
@@ -71,7 +74,7 @@ class Welcome(Screen):
                             background_color = [0.564706, 0.933333, 0.564706,1],#green
                             size_hint  = (.2,1),
                             height = int(Window.height)/8)
-        self.tapeCardInstruction = Label(text='Type you card\non the right!',
+        self.tapeCardInstruction = Label(text='Tap your card\non the right!',
                                          color = (1, 0.647059, 0,1),
                                          font_size = 25,
                                          size_hint = (0.5,1))
@@ -90,7 +93,9 @@ class Welcome(Screen):
         self.enter.bind(on_press=self.change_to_UserInterface)
         Clock.schedule_interval(self.readcard, 1)
         Clock.schedule_interval(self.isfull, 1)
-        self.add_widget(self.layout)
+        FloatLay.add_widget(pic1)
+        FloatLay.add_widget(self.layout)
+        self.add_widget(FloatLay)
     
     def change_to_UserInterface(self, value):
         #update ID
@@ -156,6 +161,9 @@ class UserInterface(Screen):
         self.layout=BoxLayout(orientation='vertical')
         #information of the person
         self.information = GridLayout(cols=2)
+
+        FloatLay1=FloatLayout(size=(300, 300))
+        pic3=Image(source='pic3.jpg')
         ID = Label(text='ID',
                    color = (0,0,0,1),
                    font_size = 30,
@@ -196,7 +204,9 @@ class UserInterface(Screen):
         self.layout.add_widget(self.Quit)
         #bind exit
         self.QuitButton.bind(on_press=self.change_to_Welcome)
-        self.add_widget(self.layout)
+        FloatLay1.add_widget(pic3)
+        FloatLay1.add_widget(self.layout)
+        self.add_widget(FloatLay1)
         Clock.schedule_interval(self.update_name_points, 1)
 
         
@@ -236,18 +246,23 @@ class UserInterface(Screen):
 
 class FullBin(Screen):
     def __init__(self, **kwargs):
+        FloatLay1=FloatLayout(size=(300, 300))
+        pic2=Image(source='pic3.jpg')
         Screen.__init__(self, **kwargs)
-        self.layout= BoxLayout(orientation='vertical')
-        self.image = Image(source="/Documents/iBin/src/Bg.png")
+        self.layout= BoxLayout()
+        self.image = Image(source="Bg2.png")
                       #size_hint = (.7,1))
-        self.warning=Label(text="[size=40]The bin is full![/size]",
-                          color=(1,0,0,1),
-                          #size_hint = (.3,1),
-                          markup=True)
+        # self.warning=Label(text="[size=40]The bin is full![/size]",
+        #                   color=(1,0,0,1),
+        #                   size_hint = (.3,1),
+        #                   pos=(100, 0),
+        #                   markup=True)
         #add the image and the warining in the layout
         self.layout.add_widget(self.image)
-        self.layout.add_widget(self.warning)
-        self.add_widget(self.layout)
+        # self.layout.add_widget(self.warning)
+        FloatLay1.add_widget(pic2)
+        FloatLay1.add_widget(self.layout)
+        self.add_widget(FloatLay1)
         
 
 class SwitchScreenApp(App):
